@@ -6,8 +6,8 @@ import seaborn as sns
 
 def plot_relational_plot(df):
     '''
-    Generating a scatter plot to visualize the relationship between math score 
-    and reading score, grouped by gender.
+    Generating a scatter plot to visualize the relationship between
+      math score and reading score, grouped by gender.
     - Useing Seaborn's scatterplot to show correlation.
     - Colors the points based on gender.
     - Saves the plot as 'relational_plot.png'.
@@ -62,6 +62,10 @@ def plot_statistical_plot(df):
 
 
 def statistical_analysis(df, col: str):
+    '''
+    Performs statistical analysis on a specified column of the dataset.
+    Calculates the mean, standard deviation, skewness, and excess kurtosis.
+    '''
     mean = df[col].mean()
     stddev = df[col].std()
     skewness = ss.skew(df[col])
@@ -70,9 +74,12 @@ def statistical_analysis(df, col: str):
 
 
 def preprocessing(df):
-    # You should preprocess your data in this function and
-    # make use of quick features such as 'describe', 'head/tail' and 'corr'.
-    
+    '''
+    Preprocesses the dataset by performing initial exploratory data analysis.
+    - Displays basic statistics for the dataset.
+    - Shows the first and last few rows of the dataset.
+    - Computes and displays the correlation matrix for numerical columns.
+    '''
     # Display basic statistics
     print("Dataset Description:\n", df.describe())
 
@@ -89,6 +96,19 @@ def preprocessing(df):
 
 
 def writing(moments, col):
+    """
+    Prints and interprets the statistical moments 
+     (mean, standard deviation, skewness, and excess kurtosis)
+     for a specified column in the dataset.
+    - Displays the calculated values of the moments.
+    - Interprets skewness and kurtosis to describe the shape 
+      of the data distribution.
+
+    Parameters:
+    - moments (tuple): A tuple containing the mean, standard deviation,
+      skewness, and excess kurtosis.
+    - col (str): The name of the column being analyzed.
+    """
     print(f'For the attribute {col}:')
     print(f'Mean = {moments[0]:.2f}, '
           f'Standard Deviation = {moments[1]:.2f}, '
@@ -113,16 +133,38 @@ def writing(moments, col):
 
 
 def main():
+    # Read the data from a CSV file and load it into a DataFrame
     df = pd.read_csv('data.csv')
-    df = preprocessing(df)
-    col = 'math score'
-    plot_relational_plot(df)
-    plot_statistical_plot(df)
-    plot_categorical_plot(df)
-    moments = statistical_analysis(df, col)
-    writing(moments, col)
-    return
     
+    # Perform preprocessing on the data
+    df = preprocessing(df)
+    
+    # Set the column name for the analysis
+    col = 'math score'
 
+    '''
+    Plotting relational plots to visualize relationships 
+     between variables in the data
+    '''
+    plot_relational_plot(df)
+    
+    # Plot statistical plots for further analysis of the data distribution
+    plot_statistical_plot(df)
+
+    '''
+    Plotting categorical plots to examine relationships between
+      categorical variables'
+    '''
+    plot_categorical_plot(df)
+    
+    # Perform statistical analysis on the specified column
+    moments = statistical_analysis(df, col)
+    
+    # Write the analysis results to an output (e.g., file, console)
+    writing(moments, col)
+    
+    return
+
+    
 if __name__ == '__main__':
     main()
