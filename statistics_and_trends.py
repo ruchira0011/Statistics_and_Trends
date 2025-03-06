@@ -32,7 +32,7 @@ def plot_categorical_plot(df):
     - Uses Seaborn's boxplot to show the distribution of writing scores.
     - Groups the data by parental education level and gender.
     - Rotates x-axis labels for better readability.
-    - Saves the plot as 'categorical_plot.png'.'
+    - Then saving the plot as 'categorical_plot.png'.'
     '''
     fig, ax = plt.subplots(figsize=(12, 8))
     sns.boxplot(data=df,
@@ -49,14 +49,24 @@ def plot_categorical_plot(df):
 
 def plot_statistical_plot(df):
     """
-    Plots a pair plot (corner plot) for numerical variables in the dataset.
-    This visualizes pairwise relationships between numerical variables.
+    Plotting a pair plot for numerical variables in the dataset
+     to visualize pairwise relationships between numerical variables.
     - Uses Seaborn's pairplot with corner=True to create a corner plot.
-    - Saves the plot as 'statistical_plot.png'.
+    - Then saving the plot as 'statistical_plot.png'.
     """
-    sns.pairplot(df, corner=True)
-    plt.suptitle("Pair Plot (Corner Plot) of Numerical Variables", y=1.02)
-    plt.savefig('statistical_plot.png')
+    # Create the pair plot
+    g = sns.pairplot(df, corner=True)
+
+    # Adjust the figure size for better title placement
+    g.figure.set_size_inches(10, 10)
+
+    # Set the title and adjust its position
+    g.figure.suptitle("Pairwise Relationships of Numerical Variables", y=1.05)
+
+    # Save the plot to a file
+    g.figure.savefig('statistical_plot.png')
+
+    # Close the plot
     plt.close()
     return
 
@@ -98,8 +108,7 @@ def preprocessing(df):
 def writing(moments, col):
     """
     Prints and interprets the statistical moments
-     (mean, standard deviation, skewness, and excess kurtosis)
-     for a specified column in the dataset.
+    (mean, standard deviation, skewness, and excess kurtosis)
     - Displays the calculated values of the moments.
     - Interprets skewness and kurtosis to describe the shape
       of the data distribution.
@@ -114,7 +123,6 @@ def writing(moments, col):
           f'Standard Deviation = {moments[1]:.2f}, '
           f'Skewness = {moments[2]:.2f}, and '
           f'Excess Kurtosis = {moments[3]:.2f}.')
-    # Delete the following options as appropriate for your data.
     # Not skewed and mesokurtic can be defined with asymmetries <-2 or >2.
     if abs(moments[2]) > 2:
         skew_type = "right-skewed" if moments[2] > 0 else "left-skewed"
@@ -139,7 +147,7 @@ def main():
     # Perform preprocessing on the data
     df = preprocessing(df)
 
-    # Set the column name for the analysis
+    # Setting the analysing column name for the variable
     col = 'math score'
 
     '''
@@ -148,19 +156,19 @@ def main():
     '''
     plot_relational_plot(df)
 
-    # Plot statistical plots for further analysis of the data distribution
+    # Plotting statistical plots for analysis of the data distribution
     plot_statistical_plot(df)
 
     '''
     Plotting categorical plots to examine relationships between
-      categorical variables'
+      categorical variables
     '''
     plot_categorical_plot(df)
 
     # Perform statistical analysis on the specified column
     moments = statistical_analysis(df, col)
 
-    # Write the analysis results to an output (e.g., file, console)
+    # Write the analysis results to an output
     writing(moments, col)
 
     return
