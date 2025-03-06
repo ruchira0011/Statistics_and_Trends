@@ -1,6 +1,4 @@
-from corner import corner
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import scipy.stats as ss
 import seaborn as sns
@@ -22,6 +20,14 @@ def plot_relational_plot(df):
 
 
 def plot_categorical_plot(df):
+    '''
+    Plots a box plot to visualize the distribution of writing scores 
+    based on parental education level and gender.
+    - Uses Seaborn's boxplot to show the distribution of writing scores.
+    - Groups the data by parental education level and gender.
+    - Rotates x-axis labels for better readability.
+    - Saves the plot as 'categorical_plot.png'.'
+    '''
     fig, ax = plt.subplots(figsize=(12, 8))
     sns.boxplot(data=df, x="parental level of education", y="writing score", hue="gender", ax=ax)
     ax.set_title("Writing Score by Parental Education Level and Gender")
