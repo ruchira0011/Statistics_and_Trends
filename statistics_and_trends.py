@@ -1,12 +1,3 @@
-"""
-This is the template file for the statistics and trends assignment.
-You will be expected to complete all the sections and
-make this a fully working, documented file.
-You should NOT change any function, file or variable names,
- if they are given to you here.
-Make use of the functions presented in the lectures
-and ensure your code is PEP-8 compliant, including docstrings.
-"""
 from corner import corner
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,7 +8,11 @@ import seaborn as sns
 
 def plot_relational_plot(df):
     '''
-    Put a comment / delete unwanted comments / formatting
+    Generating a scatter plot to visualize the relationship between math score 
+    and reading score, grouped by gender.
+    - Useing Seaborn's scatterplot to show correlation.
+    - Colors the points based on gender.
+    - Saves the plot as 'relational_plot.png'.
     '''
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.scatterplot(data=df, x="math score", y="reading score", hue="gender", alpha=0.7, ax=ax)
@@ -37,12 +32,16 @@ def plot_categorical_plot(df):
 
 
 def plot_statistical_plot(df):
-    fig, ax = plt.subplots(figsize=(8, 6))
-    sns.histplot(df["math score"], kde=True, bins=20, color="blue", ax=ax)
-    ax.set_title("Distribution of Math Scores")
-    ax.set_xlabel("Math Score")
-    ax.set_ylabel("Number of Students")
+    """
+    Plots a pair plot (corner plot) for numerical variables in the dataset.
+    This visualizes pairwise relationships between numerical variables.
+    - Uses Seaborn's pairplot with corner=True to create a corner plot.
+    - Saves the plot as 'statistical_plot.png'.
+    """
+    sns.pairplot(df, corner=True)
+    plt.suptitle("Pair Plot (Corner Plot) of Numerical Variables", y=1.02)
     plt.savefig('statistical_plot.png')
+    plt.close()
     return
 
 
@@ -86,14 +85,12 @@ def writing(moments, col):
     else:
         skew_type = "not skewed"
 
-    if moments[3] < -1:
+    if moments[3] < 0:
         kurtosis_type = "platykurtic"
-    elif -1 <= moments[3] <= 1:
+    elif moments[3] == 0:
         kurtosis_type = "mesokurtic"
     else:
         kurtosis_type = "leptokurtic"
-
-        # logic not sure
 
     print(f'The data was {skew_type} and {kurtosis_type}.')
     return
@@ -111,7 +108,5 @@ def main():
     return
     
 
-
 if __name__ == '__main__':
     main()
-
