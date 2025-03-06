@@ -13,7 +13,13 @@ def plot_relational_plot(df):
     - Saves the plot as 'relational_plot.png'.
     '''
     fig, ax = plt.subplots(figsize=(8, 6))
-    sns.scatterplot(data=df, x="math score", y="reading score", hue="gender", alpha=0.7, ax=ax)
+    sns.scatterplot(
+        data=df,
+        x="math score",
+        y="reading score",
+        hue="gender",
+        alpha=0.7,
+        ax=ax)
     ax.set_title("Math Score vs Reading Score by Gender")
     plt.savefig('relational_plot.png')
     return
@@ -29,7 +35,11 @@ def plot_categorical_plot(df):
     - Saves the plot as 'categorical_plot.png'.'
     '''
     fig, ax = plt.subplots(figsize=(12, 8))
-    sns.boxplot(data=df, x="parental level of education", y="writing score", hue="gender", ax=ax)
+    sns.boxplot(data=df,
+                x="parental level of education",
+                y="writing score",
+                hue="gender",
+                ax=ax)
     ax.set_title("Writing Score by Parental Education Level and Gender")
     plt.xticks(rotation=45)
     plt.tight_layout()
