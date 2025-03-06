@@ -27,7 +27,7 @@ def plot_relational_plot(df):
 
 def plot_categorical_plot(df):
     '''
-    Plots a box plot to visualize the distribution of writing scores 
+    Plots a box plot to visualize the distribution of writing scores
     based on parental education level and gender.
     - Uses Seaborn's boxplot to show the distribution of writing scores.
     - Groups the data by parental education level and gender.
@@ -97,11 +97,11 @@ def preprocessing(df):
 
 def writing(moments, col):
     """
-    Prints and interprets the statistical moments 
+    Prints and interprets the statistical moments
      (mean, standard deviation, skewness, and excess kurtosis)
      for a specified column in the dataset.
     - Displays the calculated values of the moments.
-    - Interprets skewness and kurtosis to describe the shape 
+    - Interprets skewness and kurtosis to describe the shape
       of the data distribution.
 
     Parameters:
@@ -135,19 +135,19 @@ def writing(moments, col):
 def main():
     # Read the data from a CSV file and load it into a DataFrame
     df = pd.read_csv('data.csv')
-    
+
     # Perform preprocessing on the data
     df = preprocessing(df)
-    
+
     # Set the column name for the analysis
     col = 'math score'
 
     '''
-    Plotting relational plots to visualize relationships 
+    Plotting relational plots to visualize relationships
      between variables in the data
     '''
     plot_relational_plot(df)
-    
+
     # Plot statistical plots for further analysis of the data distribution
     plot_statistical_plot(df)
 
@@ -156,15 +156,15 @@ def main():
       categorical variables'
     '''
     plot_categorical_plot(df)
-    
+
     # Perform statistical analysis on the specified column
     moments = statistical_analysis(df, col)
-    
+
     # Write the analysis results to an output (e.g., file, console)
     writing(moments, col)
-    
+
     return
 
-    
+
 if __name__ == '__main__':
     main()
